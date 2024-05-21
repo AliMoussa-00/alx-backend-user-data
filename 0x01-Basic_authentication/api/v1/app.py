@@ -23,7 +23,7 @@ if auth_type == 'basic_auth':
 
 
 @app.before_request
-def before_request():
+def before_request() -> None:
     '''execute before any request'''
     if auth:
         path = request.path
