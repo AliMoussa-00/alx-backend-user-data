@@ -38,6 +38,7 @@ class SessionDBAuth(SessionExpAuth):
         returns the User ID by requesting UserSession in
         the database based on session_id
         '''
+        self.user_session.load_from_file()
 
         # get the user_session object based on session id
         users_sessions = self.user_session.search(
@@ -51,7 +52,7 @@ class SessionDBAuth(SessionExpAuth):
         expiration = user_session.created_at + \
             timedelta(seconds=self.session_duration)
         if expiration < datetime.now():  # if expiration date is passed
-            # self.destroy_session(request)
+            self.destroy_session(request)
             return None
 
         return user_session.user_id
