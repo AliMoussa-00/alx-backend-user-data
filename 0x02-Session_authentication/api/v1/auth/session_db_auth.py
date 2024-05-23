@@ -18,6 +18,8 @@ class SessionDBAuth(SessionExpAuth):
         '''Initializing the instance'''
         super().__init__()
         self.user_session = UserSession()
+        # get user sessions from DB (file)
+        self.user_session.load_from_file()
 
     def create_session(self, user_id=None):
         '''creating a session and storing session Id in DB'''
@@ -36,8 +38,6 @@ class SessionDBAuth(SessionExpAuth):
         returns the User ID by requesting UserSession in
         the database based on session_id
         '''
-        # get user sessions from DB (file)
-        self.user_session.load_from_file()
 
         # get the user_session object based on session id
         users_sessions = self.user_session.search(
@@ -47,7 +47,6 @@ class SessionDBAuth(SessionExpAuth):
             return None
 
         user_session = users_sessions[0]
-        self.user_id_by_session_id[session_id] = user_session.user_id
 
         expiration = user_session.created_at + \
             timedelta(seconds=self.session_duration)
