@@ -68,3 +68,5 @@ class SessionDBAuth(SessionExpAuth):
             if users_sessions != []:
                 user_session = users_sessions[0]
                 user_session.remove()
+                return True
+        return False
