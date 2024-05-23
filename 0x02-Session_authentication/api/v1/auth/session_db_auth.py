@@ -51,7 +51,7 @@ class SessionDBAuth(SessionExpAuth):
         expiration = user_session.created_at + \
             timedelta(seconds=self.session_duration)
         if expiration < datetime.now():  # if expiration date is passed
-            self.destroy_session(request)
+            # self.destroy_session(request)
             return None
 
         return user_session.user_id
