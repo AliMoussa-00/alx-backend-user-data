@@ -62,14 +62,15 @@ class DB:
             the first row found in the users
         '''
         if not kwargs:
-            raise InvalidRequestError
-        for k in kwargs.keys():
-            if not hasattr(User, k):
-                raise InvalidRequestError
+            raise InvalidRequestError()
+        else:
+            for k in kwargs.keys():
+                if not hasattr(User, k):
+                    raise InvalidRequestError()
 
         user = self._session.query(User).filter_by(**kwargs).first()
         if not user:
-            raise NoResultFound
+            raise NoResultFound()
         return user
 
     def update_user(self, user_id: int, **kwargs: Dict[str, Any]) -> None:
